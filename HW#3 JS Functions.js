@@ -2,14 +2,17 @@
 // Task 1 'splitAndMerge'
 //sp -separator as a second argument
 function splitAndMerge(str, sp) {
-  var concatedStr = str.split(" ").join("");
-  if (sp === ",") {
-    return concatedStr.split("").join(",");
-  } else {
-    return concatedStr.split("").join(" ");
+  var newString = str.split(" ");
+
+  for (var i = 0; i < newString.length; i++) {
+    newString[i] = newString[i].split("").join(sp);
   }
+
+  return newString.join(" ");
 }
 
+console.log(splitAndMerge("My name is John", " ")); // should return "M y n a m e i s J o h n"
+console.log(splitAndMerge("Hello World!", ",")); // should return "H,e,l,l,o W,o,r,l,d,!"
 // Task 2 'Convert'
 function objectToArray(object) {
   var resultArray = Array.from(object);
@@ -26,6 +29,22 @@ function toCamelCase(str) {
   });
 }
 
+//decision without regexep
+function toCamelCase(str) {
+  var resultString = "";
+
+  for (var i = 0; i < str.length; ++i) {
+    if (str[i] == "-" || str[i] == "_") {
+      resultString += str[i + 1].toUpperCase();
+      i++;
+    } else {
+      resultString += str[i];
+    }
+  }
+
+  return resultString;
+}
+
 // Task 4 'Each word reversal function'
 function reverseString(str) {
   return str
@@ -37,16 +56,16 @@ function reverseString(str) {
 }
 //if we are looking for more elegant solution for this task we can go like this:
 function reverseStr(str) {
-  return str.replace(/\w{0,}/g, function (w) {
-    return w.split("").reverse().join("");
+  return str.replace(/\w{0,}/g, function (word) {
+    return word.split("").reverse().join("");
   });
 }
 
 // Task 5 'stringExpansion'
 //construction if/else with _regexp.test_ supposed to check if string got numbers at all
 function stringExpansion(str) {
-  if (/\d/.test(str)) {                       
-    let arr = s.split("");
+  if (/\d/.test(str)) {
+    let arr = str.split("");
     let newArr = [];
     let multiplier = 1;
     for (i = 0; i < arr.length; i++) {
